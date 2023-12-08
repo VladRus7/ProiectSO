@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Verifică dacă scriptul a primit exact un argument
+if [ "$#" -ne 1 ]; then
+    echo "Usage: $0 <char>"
+    exit 1
+fi
+
+char="$1"
+
+# Initializare contor
+counter=0
+
+# Citeste linii pana la end-of-file
+ while  read -r line;
+    do
+    echo "$line" | grep -E "^[A-Z][A-Za-z0-9 ,.!?]*[.!?]$" | grep -v ",si" | grep -E -c $char
+    if [ $? -eq 0 ] 
+    then
+        ((counter++))
+    fi
+    done
+    echo $counter
